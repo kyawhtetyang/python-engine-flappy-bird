@@ -44,10 +44,16 @@ Responsibilities:
 
 ## Local Setup
 
+Clone the repository and work from the repository root:
+
+```bash
+git clone git@github.com:kyawhtetyang/python-engine-flappy-bird.git
+cd python-engine-flappy-bird
+```
+
 ### Python
 
 ```bash
-cd ~/execution/09_Game/03_Python_Flappy_Bird/v0
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
@@ -57,7 +63,7 @@ python -m pip install -e '.[dev]'
 ### Frontend
 
 ```bash
-cd ~/execution/09_Game/03_Python_Flappy_Bird/v0/frontend
+cd frontend
 npm install
 ```
 
@@ -66,7 +72,6 @@ npm install
 ### Backend
 
 ```bash
-cd ~/execution/09_Game/03_Python_Flappy_Bird/v0
 source .venv/bin/activate
 python -m uvicorn server.main:app --host 127.0.0.1 --port 8000
 ```
@@ -74,7 +79,7 @@ python -m uvicorn server.main:app --host 127.0.0.1 --port 8000
 ### Frontend
 
 ```bash
-cd ~/execution/09_Game/03_Python_Flappy_Bird/v0/frontend
+cd frontend
 npm run dev -- --host 127.0.0.1 --port 3000
 ```
 
@@ -114,7 +119,6 @@ Open:
 ### Python tests
 
 ```bash
-cd ~/execution/09_Game/03_Python_Flappy_Bird/v0
 source .venv/bin/activate
 python -m pytest tests
 ```
@@ -122,7 +126,7 @@ python -m pytest tests
 ### Frontend build
 
 ```bash
-cd ~/execution/09_Game/03_Python_Flappy_Bird/v0/frontend
+cd frontend
 npm run build
 ```
 
