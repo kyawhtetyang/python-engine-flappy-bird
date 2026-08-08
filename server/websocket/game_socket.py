@@ -1,0 +1,2 @@
+class GameSocketHandler:
+    pass
