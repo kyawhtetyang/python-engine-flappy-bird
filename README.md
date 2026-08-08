@@ -1,23 +1,45 @@
-# Python Flappy Bird v0
+# Python Engine Flappy Bird
 
-Runnable localhost Flappy Bird architecture experiment:
+A Flappy Bird architecture experiment that separates authoritative game simulation from browser presentation.
 
-- Python owns authoritative game state, simulation, physics, collision, and scoring
-- TypeScript owns browser rendering and input only
-- FastAPI + WebSocket connect the browser client to the Python simulation
+Python owns the game loop, physics, pipe simulation, collision, scoring, and game state. A lightweight FastAPI WebSocket layer streams authoritative snapshots to a TypeScript and HTML5 Canvas frontend, which handles only rendering and player input.
+
+The project explores engine architecture, real-time client/server communication, state ownership, and separation of game logic from presentation rather than attempting to build a production-grade general-purpose game engine.
 
 ## Architecture
 
 ```text
-TypeScript Frontend :3000
-        ↕ WebSocket
-FastAPI Server :8000
-        ↓
-GameManager
-        ↓
-Flappy Bird Game
-        ↓
-Generic Python Engine
+TypeScript + HTML5 Canvas
+    Presentation / Input
+            |
+            | START / FLAP / RESTART
+            v
+        WebSocket
+            |
+            v
+         FastAPI
+     Transport Layer
+            |
+            v
+       GameManager
+   Authoritative State
+            |
+       +----+----+
+       v         v
+   Game Logic   Lightweight
+   |- Bird      Engine Layer
+   |- Pipes     |- Clock
+   |- Scoring   |- GameLoop
+   '- Collision '- Physics
+            |
+            v
+     State Snapshot
+            |
+            v
+       WebSocket
+            |
+            v
+    Canvas Renderer
 ```
 
 Responsibilities:
@@ -62,6 +84,8 @@ python -m pip install -e '.[dev]'
 
 ### Frontend
 
+From the repository root:
+
 ```bash
 cd frontend
 npm install
@@ -77,6 +101,8 @@ python -m uvicorn server.main:app --host 127.0.0.1 --port 8000
 ```
 
 ### Frontend
+
+From the repository root:
 
 ```bash
 cd frontend
@@ -95,7 +121,7 @@ Open:
 - `Space`: flap
 - canvas click: flap
 
-## Current v0 Capabilities
+## Current Capabilities
 
 - authoritative Python Bird physics
 - authoritative Python pipe spawning and movement
@@ -106,7 +132,7 @@ Open:
 - local frontend rendering with copied local Flappy Bird assets
 - Python test suite and frontend build verified
 
-## Current v0 Non-Goals
+## Current Non-Goals
 
 - no deployment
 - no multiplayer
@@ -124,6 +150,8 @@ python -m pytest tests
 ```
 
 ### Frontend build
+
+From the repository root:
 
 ```bash
 cd frontend
@@ -147,4 +175,4 @@ Attribution is recorded in:
 - `frontend/assets/images/ATTRIBUTION.md`
 
 These assets are local copies only.
-There is no runtime dependency on `02_Web_Flappy_Bird` or GitHub raw URLs.
+There is no runtime dependency on external asset-hosting repositories or GitHub raw URLs.
